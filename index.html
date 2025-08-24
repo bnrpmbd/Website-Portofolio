@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio - Banar Pambudi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-blue': '#00d2ff',
+                        'cyber-purple': '#6366f1',
+                        'cyber-dark': '#0a0a0a',
+                        'cyber-gray': '#1a1a1a',
+                    },
+                    fontFamily: {
+                        'cyber': ['Inter', 'system-ui', 'sans-serif'],
+                        'cyber-heading': ['Exo 2', 'Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'float': 'float 3s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'typewriter': 'typewriter 4s steps(40) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Exo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Favicon default -->
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+
+    <!-- PNG fallback -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+
+    <!-- Untuk iOS/Android -->
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+    <!-- Progress Web App -->
+    <link rel="manifest" href="assets/site.webmanifest">
+
+    <style>
+        /* Ensure page always starts from top */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            scroll-behavior: smooth;
+            overscroll-behavior: none;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 20px #00d2ff; }
+            to { box-shadow: 0 0 30px #00d2ff, 0 0 40px #6366f1; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Initial state untuk sections agar tidak terlihat dulu sebelum animasi */
+        section:not(#home) {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        /* State setelah animasi dimulai */
+        section.animate-slide-up {
+            animation: slideUp 0.8s ease-out forwards;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 100%;
+            min-height: 1.5em; /* Ensure consistent height */
+        }
+        
+        /* Mobile responsive typewriter */
+        @media (max-width: 768px) {
+            .typewriter {
+                white-space: normal; /* Allow wrapping for longer text */
+                line-height: 1.4;
+                font-size: 0.85rem;
+                padding: 0 0.5rem;
+                overflow: hidden;
+                max-width: calc(100vw - 2rem); /* Prevent overflow */
+                word-wrap: break-word;
+                height: auto; /* Allow height adjustment */
+                min-height: 2.8em; /* Space for 2 lines */
+            }
+            
+            /* Better mobile spacing */
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            /* Mobile contact cards */
+            .contact-card {
+                margin-bottom: 1rem;
+            }
+            
+            /* Hero section mobile adjustment */
+            #home {
+                padding-top: 6rem;
+                min-height: 100vh;
+            }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 210, 255, 0.3);
+        }
+        
+        .neon-border {
+            border: 2px solid transparent;
+            background: linear-gradient(45deg, #00d2ff, #6366f1, #00d2ff) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+        }
+        
+        .cyber-grid {
+            background-image: 
+                linear-gradient(rgba(0, 210, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Custom font styling untuk readability */
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: 0.01em;
+        }
+        
+        /* Headings menggunakan font yang lebih stylish tapi tetap readable */
+        h1, h2, h3, h4, h5, h6, .font-cyber-heading {
+            font-family: 'Exo 2', 'Inter', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+        
+        /* Navigation dan elemen penting*/
+        .nav-brand, .typewriter, .cyber-text {
+            font-family: 'Exo 2', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+        
+        /* Static glow effect untuk logo */
+        .logo-glow-static {
+            box-shadow: 
+                0 0 8px rgba(0, 210, 255, 0.3),
+                0 0 16px rgba(0, 210, 255, 0.2),
+                0 0 24px rgba(0, 210, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-cyber-dark text-white font-cyber overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 backdrop-blur-lg bg-cyber-dark/80 border-b border-cyber-blue/20">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-cyber-blue cyber-text nav-brand flex items-center space-x-1">
+                    <div class="w-10 h-10 flex items-center justify-center rounded-full overflow-hidden border border-cyber-blue/30 p-[1px] logo-glow-static">
+                        <img src="assets/Logo_Portfolio.jpg" alt="BNRPMBD Logo" class="w-full h-full object-cover rounded-full" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-cyber-blue to-cyber-purple rounded-full" style="display: none;">
+                            <i class="fas fa-code text-white text-xl"></i>
+                        </div>
+                    </div>
+                    <span>BNRPMBD</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-cyber-blue transition-colors">Beranda</a>
+                    <a href="#about" class="hover:text-cyber-blue transition-colors">Tentang</a>
+                    <a href="#projects" class="hover:text-cyber-blue transition-colors">Proyek</a>
+                    <a href="#contact" class="hover:text-cyber-blue transition-colors">Kontak</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-cyber-blue">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cyber-gray/95 backdrop-blur-lg">
+            <div class="px-6 py-4 space-y-4">
+                <a href="#home" class="block hover:text-cyber-blue transition-colors">Beranda</a>
+                <a href="#about" class="block hover:text-cyber-blue transition-colors">Tentang</a>
+                <a href="#projects" class="block hover:text-cyber-blue transition-colors">Proyek</a>
+                <a href="#contact" class="block hover:text-cyber-blue transition-colors">Kontak</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative bg-cyber-dark pt-20 md:pt-0">
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="text-center">
+                <div class="animate-float mb-8 mt-8 md:mt-0">
+                    <div class="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full border-4 border-cyber-blue/50 p-2 animate-glow">
+                        <div class="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-cyber-blue to-cyber-purple">
+                            <img src="assets/Foto.jpg" alt="Profile Photo" class="w-full h-full object-cover rounded-full" id="profile-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="w-full h-full flex items-center justify-center" style="display: none;">
+                                <i class="fas fa-user text-4xl md:text-6xl text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="text-3xl md:text-5xl lg:text-7xl font-bold mb-6 animate-slide-up px-4">
+                    Halo, Saya <span class="text-cyber-blue">Banar Pambudi</span>
+                </h1>
+                <div class="text-lg md:text-xl lg:text-2xl mb-8 min-h-[2rem] md:min-h-[2.5rem]">
+                    <span class="typewriter text-cyber-blue text-center block px-4">WebDev dan Robotics Enthusiast | Mahasiswa S1 Teknik Elektro</span>
+                </div>
+                <p class="text-base md:text-lg lg:text-xl text-gray-300 mb-12 max-w-2xl mx-auto px-4">
+                    Memiliki passion dalam merancang solusi digital yang inovatif dengan memanfaatkan teknologi mutakhir untuk menghadirkan dampak nyata
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center px-4">
+                    <button id="view-work-btn" class="px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-cyber-blue to-cyber-purple rounded-lg font-bold hover:scale-105 transition-transform">
+                        Lihat Karya Saya
+                    </button>
+                    <a href="assets/CV_Teknologi-Informasi_ID.pdf" download="Banar_Pambudi_CV.pdf" class="px-6 md:px-8 py-3 md:py-4 border-2 border-cyber-blue text-cyber-blue rounded-lg font-bold hover:bg-cyber-blue hover:text-cyber-dark transition-colors text-center">
+                        <i class="fas fa-download mr-2"></i>Unduh CV
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute top-20 left-10 animate-float" style="animation-delay: 0.5s;">
+            <div class="w-4 h-4 bg-cyber-blue rounded-full opacity-60"></div>
+        </div>
+        <div class="absolute top-40 right-20 animate-float" style="animation-delay: 1s;">
+            <div class="w-6 h-6 border-2 border-cyber-purple rotate-45 opacity-40"></div>
+        </div>
+        <div class="absolute bottom-40 left-20 animate-float" style="animation-delay: 1.5s;">
+            <div class="w-8 h-8 border-2 border-cyber-blue rounded-full opacity-30"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-cyber-dark">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Tentang <span class="text-cyber-blue">Saya</span></h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-cyber-blue to-cyber-purple mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <p class="text-lg leading-relaxed text-gray-300">
+                        Saya adalah mahasiswa S1 Teknik Elektro dengan konsentrasi di Teknologi Informasi. Saat ini, saya aktif sebagai anggota tim vision programming di EWS Bascorro (Humanoid Soccer Robot), dengan fokus pada pengembangan solusi computer vision.
+                    </p>
+                    <p class="text-lg leading-relaxed text-gray-300">
+                        Selain itu, saya juga memiliki ketertarikan pada pengembangan web.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="text-center p-4 bg-cyber-dark rounded-lg border border-cyber-blue/20">
+                            <div class="text-3xl font-bold text-cyber-blue">5+</div>
+                            <div class="text-sm text-gray-400">Proyek</div>
+                        </div>
+                        <div class="text-center p-4 bg-cyber-dark rounded-lg border border-cyber-blue/20">
+                            <div class="text-3xl font-bold text-cyber-blue">2+</div>
+                            <div class="text-sm text-gray-400">Tahun Pengalaman</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold mb-6 text-cyber-blue">Keterampilan & Teknologi</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="skill-item" data-skill="70">
+                            <div class="flex justify-between mb-2">
+                                <span>Python</span>
+                                <span class="text-cyber-blue">70%</span>
+                            </div>
+                            <div class="w-full bg-cyber-dark rounded-full h-3">
+                                <div class="bg-gradient-to-r from-cyber-blue to-cyber-purple h-3 rounded-full skill-bar" style="width: 0%" data-width="70%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item" data-skill="50">
+                            <div class="flex justify-between mb-2">
+                                <span>C++</span>
+                                <span class="text-cyber-blue">55%</span>
+                            </div>
+                            <div class="w-full bg-cyber-dark rounded-full h-3">
+                                <div class="bg-gradient-to-r from-cyber-blue to-cyber-purple h-3 rounded-full skill-bar" style="width: 0%" data-width="55%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item" data-skill="60">
+                            <div class="flex justify-between mb-2">
+                                <span>JavaScript</span>
+                                <span class="text-cyber-blue">45%</span>
+                            </div>
+                            <div class="w-full bg-cyber-dark rounded-full h-3">
+                                <div class="bg-gradient-to-r from-cyber-blue to-cyber-purple h-3 rounded-full skill-bar" style="width: 0%" data-width="45%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item" data-skill="35">
+                            <div class="flex justify-between mb-2">
+                                <span>Tailwind CSS</span>
+                                <span class="text-cyber-blue">35%</span>
+                            </div>
+                            <div class="w-full bg-cyber-dark rounded-full h-3">
+                                <div class="bg-gradient-to-r from-cyber-blue to-cyber-purple h-3 rounded-full skill-bar" style="width: 0%" data-width="35%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-cyber-dark">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Proyek <span class="text-cyber-blue">Saya</span></h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-cyber-blue to-cyber-purple mx-auto mb-8"></div>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Berikut beberapa proyek yang telah saya kerjakan
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="card-hover bg-cyber-gray rounded-xl p-6 border border-cyber-blue/20">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-gradient-to-br from-cyber-blue/20 to-cyber-purple/20 rounded-lg overflow-hidden relative group cursor-pointer view-project-area" data-project="project1">
+                            <img src="assets/Projects/Form_Laporan_Anomali.png" alt="Form Laporan Anomali Project" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-cyber-blue/20 to-cyber-purple/20" style="display: none;">
+                                <i class="fas fa-robot text-6xl text-cyber-blue"></i>
+                            </div>
+                            <div class="absolute inset-0 bg-cyber-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <div class="text-center">
+                                    <i class="fas fa-search-plus text-3xl text-white mb-2"></i>
+                                    <p class="text-white font-bold">Lihat Proyek</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-cyber-blue">Website Form Laporan Anomali</h3>
+                    <p class="text-gray-300 mb-4">
+                        Aplikasi pelaporan anomali ringan berbasis browser yang dibuat dengan Google Apps Script yang memvalidasi masukan, entri stempel waktu, dan meringkas secara otomatis laporan pagi/sore ke dalam Google Sheets — cepat, andal, dan siap untuk operasi harian.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-cyber-blue/20 text-cyber-blue rounded-full text-sm">Google Apps Script</span>
+                        <span class="px-3 py-1 bg-cyber-blue/20 text-cyber-blue rounded-full text-sm">HTML5/CSS3</span>
+                        <span class="px-3 py-1 bg-cyber-blue/20 text-cyber-blue rounded-full text-sm">JavaScript (Vanilla)</span>
+                        <span class="px-3 py-1 bg-cyber-blue/20 text-cyber-blue rounded-full text-sm">Google Sheets</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <button class="view-project-btn flex-1 py-2 bg-cyber-blue text-cyber-dark rounded-lg font-bold hover:bg-cyber-blue/80 transition-colors" data-project="project1">
+                            <i class="fas fa-eye mr-2"></i>Lihat
+                        </button>
+                        <a href="https://github.com/bnrpmbd/Form-Laporan-Anomali" target="_blank" class="flex-1 py-2 border border-cyber-blue text-cyber-blue rounded-lg font-bold hover:bg-cyber-blue hover:text-cyber-dark transition-colors text-center">
+                            <i class="fab fa-github mr-2"></i>Kode
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="card-hover bg-cyber-gray rounded-xl p-6 border border-cyber-blue/20">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-gradient-to-br from-cyber-purple/20 to-cyber-blue/20 rounded-lg overflow-hidden relative group cursor-pointer view-project-area" data-project="project2">
+                            <img src="assets/Projects/Website_Portofolio.png" alt="Portfolio Website Project" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-cyber-purple/20 to-cyber-blue/20" style="display: none;">
+                                <i class="fas fa-briefcase text-6xl text-cyber-purple"></i>
+                            </div>
+                            <div class="absolute inset-0 bg-cyber-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <div class="text-center">
+                                    <i class="fas fa-search-plus text-3xl text-white mb-2"></i>
+                                    <p class="text-white font-bold">Lihat Proyek</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-cyber-blue">Website Portofolio</h3>
+                    <p class="text-gray-300 mb-4">
+                        Situs web portofolio pribadi yang modern dan responsif dengan gaya visual futuristik/cyberpunk, animasi yang halus, dan bagian yang jelas untuk Beranda, Tentang, Keterampilan, Proyek, dan Kontak — dioptimalkan untuk navigasi cepat dan memamerkan karya.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-cyber-purple/20 text-cyber-purple rounded-full text-sm">HTML5</span>
+                        <span class="px-3 py-1 bg-cyber-purple/20 text-cyber-purple rounded-full text-sm">CSS3</span>
+                        <span class="px-3 py-1 bg-cyber-purple/20 text-cyber-purple rounded-full text-sm">JavaScript (Vanilla)</span>
+                        <span class="px-3 py-1 bg-cyber-purple/20 text-cyber-purple rounded-full text-sm">Google Fonts/Font Awesome</span>
+                        <span class="px-3 py-1 bg-cyber-purple/20 text-cyber-purple rounded-full text-sm">GitHub Pages</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <button class="view-project-btn flex-1 py-2 bg-cyber-purple text-white rounded-lg font-bold hover:bg-cyber-purple/80 transition-colors" data-project="project2">
+                            <i class="fas fa-eye mr-2"></i>Lihat
+                        </button>
+                        <a href="https://github.com/bnrpmbd/Portfolio-Website-ENG" target="_blank" class="flex-1 py-2 border border-cyber-purple text-cyber-purple rounded-lg font-bold hover:bg-cyber-purple hover:text-white transition-colors text-center">
+                            <i class="fab fa-github mr-2"></i>Kode
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="card-hover bg-cyber-gray rounded-xl p-6 border border-cyber-blue/20">
+                    <div class="mb-6">
+                        <div class="w-full h-48 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-lg overflow-hidden relative group cursor-pointer view-project-area" data-project="project3">
+                            <img src="assets/Projects/Kalkulator_Statis.png" alt="Matrix Calculator Project" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-500/20 to-blue-500/20" style="display: none;">
+                                <i class="fas fa-city text-6xl text-green-500"></i>
+                            </div>
+                            <div class="absolute inset-0 bg-cyber-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <div class="text-center">
+                                    <i class="fas fa-search-plus text-3xl text-white mb-2"></i>
+                                    <p class="text-white font-bold">Lihat Proyek</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-cyber-blue">Kalkulator Matriks - Aplikasi Web Statis</h3>
+                    <p class="text-gray-300 mb-4">
+                        Kalkulator matriks web statis ringan yang dibuat dengan HTML, CSS, dan JavaScript vanilla, mendukung nilai eigen/vektor eigen, beberapa dekomposisi matriks (LU, Cholesky, Doolittle, Crout), dan UI yang bersih dan responsif untuk eksplorasi numerik yang cepat.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-green-500/20 text-green-500 rounded-full text-sm">HTML5/CSS3</span>
+                        <span class="px-3 py-1 bg-green-500/20 text-green-500 rounded-full text-sm">JavaScript (Vanilla) + math.js</span>
+                        <span class="px-3 py-1 bg-green-500/20 text-green-500 rounded-full text-sm">Github Pages</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <button class="view-project-btn flex-1 py-2 bg-green-500 text-white rounded-lg font-bold hover:bg-green-500/80 transition-colors" data-project="project3">
+                            <i class="fas fa-eye mr-2"></i>Lihat
+                        </button>
+                        <a href="https://github.com/bnrpmbd/Kalkulator-Matriks" target="_blank" class="flex-1 py-2 border border-green-500 text-green-500 rounded-lg font-bold hover:bg-green-500 hover:text-white transition-colors text-center">
+                            <i class="fab fa-github mr-2"></i>Kode
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button id="view-all-projects-btn" class="px-8 py-4 border-2 border-cyber-blue text-cyber-blue rounded-lg font-bold hover:bg-cyber-blue hover:text-cyber-dark transition-colors">
+                    Lihat Semua Proyek
+                </button>
+            </div>
+            
+            <!-- Hidden Projects Section -->
+            <div id="additional-projects" class="hidden mt-16">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project 4 -->
+                    <div class="card-hover bg-cyber-gray rounded-xl p-6 border border-cyber-blue/20">
+                        <div class="mb-6">
+                            <div class="w-full h-48 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-lg overflow-hidden relative group cursor-pointer view-project-area" data-project="project4">
+                                <img src="assets/Projects/Kalkulator_Python.png" alt="Streamlit Matrix Calculator" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-orange-500/20 to-red-500/20" style="display: none;">
+                                    <i class="fas fa-robot text-6xl text-orange-500"></i>
+                                </div>
+                                <div class="absolute inset-0 bg-cyber-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <i class="fas fa-search-plus text-3xl text-white mb-2"></i>
+                                        <p class="text-white font-bold">Lihat Proyek</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-cyber-blue">Kalkulator Matriks Streamlit</h3>
+                        <p class="text-gray-300 mb-4">
+                            Aplikasi Streamlit responsif untuk analisis matriks (nilai eigen/vektor, diagonalisasi, LU, Cholesky, Doolittle, Crout) yang dibuat dengan Python, NumPy, dan SciPy. Aplikasi ini ideal untuk eksplorasi interaktif cepat, tujuan pengajaran, serta demonstrasi konsep matematis secara praktis.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-orange-500/20 text-orange-500 rounded-full text-sm">Python/Streamlit</span>
+                            <span class="px-3 py-1 bg-orange-500/20 text-orange-500 rounded-full text-sm">NumPy/SciPy</span>
+                            <span class="px-3 py-1 bg-orange-500/20 text-orange-500 rounded-full text-sm">Plain-text matrix I/O</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button class="view-project-btn flex-1 py-2 bg-orange-500 text-white rounded-lg font-bold hover:bg-orange-500/80 transition-colors" data-project="project4">
+                                <i class="fas fa-eye mr-2"></i>Lihat
+                            </button>
+                            <a href="https://github.com/bnrpmbd/Streamlit-KalkulatorMatriks" target="_blank" class="flex-1 py-2 border border-orange-500 text-orange-500 rounded-lg font-bold hover:bg-orange-500 hover:text-white transition-colors text-center">
+                                <i class="fab fa-github mr-2"></i>Kode
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 5 -->
+                    <div class="card-hover bg-cyber-gray rounded-xl p-6 border border-cyber-blue/20">
+                        <div class="mb-6">
+                            <div class="w-full h-48 bg-gradient-to-br from-yellow-500/20 to-amber-500/20 rounded-lg overflow-hidden relative group cursor-pointer view-project-area" data-project="project5">
+                                <img src="assets/Projects/Portfolio_Website(Beta).png" alt="Portfolio Website (Beta)" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-yellow-500/20 to-amber-500/20" style="display: none;">
+                                    <i class="fas fa-microchip text-6xl text-yellow-500"></i>
+                                </div>
+                                <div class="absolute inset-0 bg-cyber-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <i class="fas fa-search-plus text-3xl text-white mb-2"></i>
+                                        <p class="text-white font-bold">Lihat Proyek</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-cyber-blue">Website Portofolio (Beta)</h3>
+                        <p class="text-gray-300 mb-4">
+                            Situs web portofolio statis responsif (Situs Web Portofolio (Beta)) yang dibuat sebagai latihan langsung sambil mempelajari HTML dan CSS; situs ini menampilkan bagian Jumbotron, About, Projects, dan Contact dengan tata letak berbasis Bootstrap dan animasi JS ringan.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-500 rounded-full text-sm">HTML5/CSS3</span>
+                            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-500 rounded-full text-sm">Bootstrap 5</span>
+                            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-500 rounded-full text-sm">JavaScript (Vanilla)</span>
+                            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-500 rounded-full text-sm">AOS/GSAP (Text Plugin)</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button class="view-project-btn flex-1 py-2 bg-yellow-500 text-cyber-dark rounded-lg font-bold hover:bg-yellow-500/80 transition-colors" data-project="project5">
+                                <i class="fas fa-eye mr-2"></i>Lihat
+                            </button>
+                            <a href="https://github.com/bnrpmbd/Portfolio-Website-Beta" target="_blank" class="flex-1 py-2 border border-yellow-500 text-yellow-500 rounded-lg font-bold hover:bg-yellow-500 hover:text-cyber-dark transition-colors text-center">
+                                <i class="fab fa-github mr-2"></i>Kode
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 6 -->
+                    <div class="card-hover bg-cyber-gray rounded-xl p-6 border border-cyber-blue/20">
+                        <div class="mb-6">
+                            <div class="w-full h-48 bg-gradient-to-br from-pink-500/20 to-rose-500/20 rounded-lg overflow-hidden relative group cursor-pointer view-project-area" data-project="project6">
+                                <img src="assets/Projects/Rangkaian_HandDryer.png" alt="Automatic Hand Dryer Simulation" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-pink-500/20 to-rose-500/20" style="display: none;">
+                                    <i class="fas fa-mobile-alt text-6xl text-pink-500"></i>
+                                </div>
+                                <div class="absolute inset-0 bg-cyber-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <i class="fas fa-search-plus text-3xl text-white mb-2"></i>
+                                        <p class="text-white font-bold">Lihat Proyek</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-cyber-blue">Simulasi Pengering Tangan Otomatis</h3>
+                        <p class="text-gray-300 mb-4">
+                            Simulasi pengering tangan otomatis untuk Proteus — kode yang dikendalikan mikrokontroler (assembly, .a51) mengontrol pengeringan yang dipicu sensor, aktivasi motor, dan logika keselamatan/waktu untuk operasi tanpa tangan.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-pink-500/20 text-pink-500 rounded-full text-sm">Proteus</span>
+                            <span class="px-3 py-1 bg-pink-500/20 text-pink-500 rounded-full text-sm">8051 (Keil .a51 assembly)</span>
+                            <span class="px-3 py-1 bg-pink-500/20 text-pink-500 rounded-full text-sm">Virtual instruments</span>
+                            <span class="px-3 py-1 bg-pink-500/20 text-pink-500 rounded-full text-sm">Basic electromechanical components</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button class="view-project-btn flex-1 py-2 bg-pink-500 text-white rounded-lg font-bold hover:bg-pink-500/80 transition-colors" data-project="project6">
+                                <i class="fas fa-eye mr-2"></i>Lihat
+                            </button>
+                            <a href="https://github.com/bnrpmbd/Proteus-HandDryer" target="_blank" class="flex-1 py-2 border border-pink-500 text-pink-500 rounded-lg font-bold hover:bg-pink-500 hover:text-white transition-colors text-center">
+                                <i class="fab fa-github mr-2"></i>Kode
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 7 -->
+                    <div class="card-hover bg-cyber-gray rounded-xl p-6 border border-cyber-blue/20">
+                        <div class="mb-6">
+                            <div class="w-full h-48 bg-gradient-to-br from-teal-500/20 to-cyan-500/20 rounded-lg overflow-hidden relative group cursor-pointer view-project-area" data-project="project7">
+                                <img src="assets/Projects/Rangkaian_ParkirOtomatis.png" alt="Automatic Parking System Simulation" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-teal-500/20 to-cyan-500/20" style="display: none;">
+                                    <i class="fas fa-car text-6xl text-teal-500"></i>
+                                </div>
+                                <div class="absolute inset-0 bg-cyber-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <i class="fas fa-search-plus text-3xl text-white mb-2"></i>
+                                        <p class="text-white font-bold">Lihat Proyek</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-cyber-blue">Simulasi Sistem Parkir Otomatis</h3>
+                        <p class="text-gray-300 mb-4">
+                            Simulasi Sistem Parkir Otomatis yang diimplementasikan dalam assembly 8051 dan divalidasi di Proteus — menangani deteksi kendaraan, kontrol penghalang, penghitung okupansi, dan umpan balik pengguna untuk prototipe pengontrol parkir tanpa kontak dasar.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-teal-500/20 text-teal-500 rounded-full text-sm">Proteus</span>
+                            <span class="px-3 py-1 bg-teal-500/20 text-teal-500 rounded-full text-sm">8051 (Keil .a51 assembly)</span>
+                            <span class="px-3 py-1 bg-teal-500/20 text-teal-500 rounded-full text-sm">Common simulated components</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button class="view-project-btn flex-1 py-2 bg-teal-500 text-white rounded-lg font-bold hover:bg-teal-500/80 transition-colors" data-project="project7">
+                                <i class="fas fa-eye mr-2"></i>Lihat
+                            </button>
+                            <a href="https://github.com/bnrpmbd/Proteus-ParkirOtomatis" target="_blank" class="flex-1 py-2 border border-teal-500 text-teal-500 rounded-lg font-bold hover:bg-teal-500 hover:text-white transition-colors text-center">
+                                <i class="fab fa-github mr-2"></i>Kode
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 8 -->
+                    <div class="card-hover bg-cyber-gray rounded-xl p-6 border border-cyber-blue/20">
+                        <div class="mb-6">
+                            <div class="w-full h-48 bg-gradient-to-br from-indigo-500/20 to-violet-500/20 rounded-lg overflow-hidden relative group cursor-pointer view-project-area" data-project="project8">
+                                <img src="assets/Projects/YOLOv5.jpg" alt="YOLOv5 Object Detection in ROS2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-500/20 to-violet-500/20" style="display: none;">
+                                    <i class="fas fa-robot text-6xl text-indigo-500"></i>
+                                </div>
+                                <div class="absolute inset-0 bg-cyber-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <i class="fas fa-search-plus text-3xl text-white mb-2"></i>
+                                        <p class="text-white font-bold">Lihat Proyek</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-cyber-blue">Deteksi Objek YOLOv5 di ROS2</h3>
+                        <p class="text-gray-300 mb-4">
+                            Sistem deteksi objek YOLOv5 berbasis ROS2 yang menangkap gambar dari kamera, menjalankan inferensi waktu nyata, dan menampilkan objek yang terdeteksi dengan kotak pembatas dan label. Sistem ini ideal untuk aplikasi robotika, penelitian, dan demonstrasi.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-500 rounded-full text-sm">ROS2/rclpy</span>
+                            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-500 rounded-full text-sm">YOLOv5/PyTorch</span>
+                            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-500 rounded-full text-sm">OpenCV/CvBridge</span>
+                            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-500 rounded-full text-sm">NumPy/SciPy utilities</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button class="view-project-btn flex-1 py-2 bg-indigo-500 text-white rounded-lg font-bold hover:bg-indigo-500/80 transition-colors" data-project="project8">
+                                <i class="fas fa-eye mr-2"></i>Lihat
+                            </button>
+                            <a href="https://github.com/bnrpmbd/YOLO-DetectionROS2" target="_blank" class="flex-1 py-2 border border-indigo-500 text-indigo-500 rounded-lg font-bold hover:bg-indigo-500 hover:text-white transition-colors text-center">
+                                <i class="fab fa-github mr-2"></i>Kode
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 9 -->
+                    <div class="card-hover bg-cyber-gray rounded-xl p-6 border border-cyber-blue/20">
+                        <div class="mb-6">
+                            <div class="w-full h-48 bg-gradient-to-br from-emerald-500/20 to-lime-500/20 rounded-lg overflow-hidden relative group cursor-pointer view-project-area" data-project="project9">
+                                <img src="assets/Projects/YOLOv12.jpg" alt="YOLOv12 Object Detection in ROS2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-500/20 to-lime-500/20" style="display: none;">
+                                    <i class="fas fa-mobile-alt text-6xl text-emerald-500"></i>
+                                </div>
+                                <div class="absolute inset-0 bg-cyber-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <i class="fas fa-search-plus text-3xl text-white mb-2"></i>
+                                        <p class="text-white font-bold">Lihat Proyek</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-cyber-blue">Deteksi Objek YOLOv12 di ROS2</h3>
+                        <p class="text-gray-300 mb-4">
+                            Node deteksi objek YOLOv12 yang terintegrasi dengan ROS2 ini menangkap frame video, menjalankan inferensi waktu nyata dengan Ultralytics YOLOv12, dan menerbitkan hasil anotasi sebagai pesan gambar ROS — dioptimalkan untuk persepsi robotika, penelitian, dan demo.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-500 rounded-full text-sm">ROS2/rclpy</span>
+                            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-500 rounded-full text-sm">YOLOv12/Ultralytics</span>
+                            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-500 rounded-full text-sm">OpenCV/CvBridge</span>
+                            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-500 rounded-full text-sm">NumPy/Torch (via Ultralytics)</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button class="view-project-btn flex-1 py-2 bg-emerald-500 text-white rounded-lg font-bold hover:bg-emerald-500/80 transition-colors" data-project="project9">
+                                <i class="fas fa-eye mr-2"></i>Lihat
+                            </button>
+                            <a href="https://github.com/bnrpmbd/YOLO-DetectionROS2" target="_blank" class="flex-1 py-2 border border-emerald-500 text-emerald-500 rounded-lg font-bold hover:bg-emerald-500 hover:text-white transition-colors text-center">
+                                <i class="fab fa-github mr-2"></i>Kode
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-cyber-dark">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Hubungi <span class="text-cyber-blue">Saya</span></h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-cyber-blue to-cyber-purple mx-auto mb-8"></div>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Mari berkolaborasi dan menciptakan sesuatu yang luar biasa bersama
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
+                <div class="space-y-6 lg:space-y-8">
+                    <div class="flex items-center space-x-3 lg:space-x-4 p-4 lg:p-6 bg-cyber-dark rounded-lg border border-cyber-blue/20">
+                        <div class="w-10 h-10 lg:w-12 lg:h-12 bg-cyber-blue rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-envelope text-cyber-dark text-lg lg:text-xl"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <h3 class="font-bold text-cyber-blue">Email</h3>
+                            <p class="text-gray-300 text-sm lg:text-base break-all">banarpambudi094@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3 lg:space-x-4 p-4 lg:p-6 bg-cyber-dark rounded-lg border border-cyber-blue/20">
+                        <div class="w-10 h-10 lg:w-12 lg:h-12 bg-cyber-purple rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-phone text-white text-lg lg:text-xl"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <h3 class="font-bold text-cyber-blue">Telepon</h3>
+                            <p class="text-gray-300 text-sm lg:text-base">+62 821-7619-3344</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3 lg:space-x-4 p-4 lg:p-6 bg-cyber-dark rounded-lg border border-cyber-blue/20">
+                        <div class="w-10 h-10 lg:w-12 lg:h-12 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-map-marker-alt text-white text-lg lg:text-xl"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <h3 class="font-bold text-cyber-blue">Lokasi</h3>
+                            <p class="text-gray-300 text-sm lg:text-base">Kota Semarang, Jawa Tengah, Indonesia</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/bnrpmbd" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-cyber-blue rounded-lg flex items-center justify-center hover:scale-110 transition-transform" title="GitHub">
+                            <i class="fab fa-github text-cyber-dark text-xl"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/banarpambudi" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform" title="LinkedIn">
+                            <i class="fab fa-linkedin text-white text-xl"></i>
+                        </a>
+                        <a href="https://instagram.com/bnr_pmbd" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform" title="Instagram">
+                            <i class="fab fa-instagram text-white text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <form id="contact-form" class="space-y-6">
+                    <div>
+                        <input type="text" name="name" placeholder="Nama Anda" required class="w-full p-4 bg-cyber-dark border border-cyber-blue/20 rounded-lg focus:border-cyber-blue focus:outline-none text-white">
+                    </div>
+                    <div>
+                        <input type="email" name="email" placeholder="Email Anda" required class="w-full p-4 bg-cyber-dark border border-cyber-blue/20 rounded-lg focus:border-cyber-blue focus:outline-none text-white">
+                    </div>
+                    <div>
+                        <input type="text" name="subject" placeholder="Subjek" required class="w-full p-4 bg-cyber-dark border border-cyber-blue/20 rounded-lg focus:border-cyber-blue focus:outline-none text-white">
+                    </div>
+                    <div>
+                        <textarea name="message" placeholder="Pesan Anda" rows="5" required class="w-full p-4 bg-cyber-dark border border-cyber-blue/20 rounded-lg focus:border-cyber-blue focus:outline-none text-white resize-none"></textarea>
+                    </div>
+                    <button type="submit" id="submit-btn" class="w-full py-4 bg-gradient-to-r from-cyber-blue to-cyber-purple rounded-lg font-bold hover:scale-105 transition-transform">
+                        <span id="submit-text">Kirim Pesan</span>
+                        <i id="submit-loader" class="fas fa-spinner fa-spin ml-2 hidden"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-cyber-dark border-t border-cyber-blue/20 relative">
+        <div class="absolute inset-0 bg-gradient-to-t from-cyber-purple/20 via-transparent to-cyber-dark"></div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <p class="text-gray-400">
+                © 2025 Banar Pambudi Portofolio. Dibuat dengan <span class="text-red-500">❤</span> dan <span class="text-cyber-blue">JavaScript</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Project Detail Modal -->
+    <div id="project-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-cyber-gray rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-cyber-blue/20">
+                <!-- Modal Header -->
+                <div class="flex justify-between items-center p-6 border-b border-cyber-blue/20">
+                    <h3 id="modal-title" class="text-2xl font-bold text-cyber-blue">Detail Proyek</h3>
+                    <button id="close-modal" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Modal Content -->
+                <div class="p-6">
+                    <!-- Project Images Gallery -->
+                    <div id="project-gallery" class="mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Images will be dynamically inserted here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Project Description -->
+                    <div class="mb-6">
+                        <h4 class="text-xl font-bold text-cyber-blue mb-4">Gambaran Proyek</h4>
+                        <div id="project-description" class="text-gray-300 leading-relaxed space-y-4">
+                            <!-- Description will be dynamically inserted here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Tech Stack -->
+                    <div class="mb-6">
+                        <h4 class="text-xl font-bold text-cyber-blue mb-4">Teknologi yang Digunakan</h4>
+                        <div id="project-tech-stack" class="flex flex-wrap gap-2">
+                            <!-- Tech stack will be dynamically inserted here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Features -->
+                    <div class="mb-6">
+                        <h4 class="text-xl font-bold text-cyber-blue mb-4">Fitur Utama</h4>
+                        <ul id="project-features" class="text-gray-300 space-y-2">
+                            <!-- Features will be dynamically inserted here -->
+                        </ul>
+                    </div>
+                    
+                    <!-- Close Button -->
+                    <div class="flex justify-center">
+                        <button id="close-project-modal" class="px-8 py-3 bg-cyber-purple text-white rounded-lg font-bold hover:bg-cyber-purple/80 transition-colors">
+                            <i class="fas fa-times mr-2"></i>Tutup
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div id="image-lightbox" class="fixed inset-0 z-[70] hidden bg-black/90 backdrop-blur-sm">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="relative max-w-4xl w-full">
+                <button id="close-lightbox" class="absolute top-4 right-4 z-[80] text-white hover:text-cyber-blue transition-colors bg-black/50 rounded-full p-2">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+                <img id="lightbox-image" src="" alt="Project Image" class="w-full h-auto max-h-[80vh] object-contain rounded-lg">
+                <div class="text-center mt-4">
+                    <p id="lightbox-caption" class="text-white text-lg"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
