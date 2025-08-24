@@ -647,7 +647,7 @@ const projectsData = {
         ],
         images: [
             "assets/Projects/YOLOv5.jpg",
-            "assets/Projects/YOLOv5.mov"
+            "assets/Projects/YOLOv5.mp4"
         ],
         techStack: ["ROS2", "rclpy", "YOLOv5", "PyTorch", "OpenCV", "CvBridge", "NumPy", "Utilitas SciPy"],
         features: [
@@ -670,7 +670,7 @@ const projectsData = {
         ],
         images: [
             "assets/Projects/YOLOv12.jpg",
-            "assets/Projects/YOLOv12.mov"
+            "assets/Projects/YOLOv12.mp4"
         ],
         techStack: ["ROS2", "rclpy", "YOLOv12", "Ultralytics", "OpenCV", "CvBridge", "NumPy", "Torch (melalui Ultralytics)"],
         features: [
@@ -1127,3 +1127,4 @@ function openVideoLightboxExternal(videoSrc, caption) {
     lightboxCaption.textContent = caption;
     lightboxModal.classList.remove('hidden');
 }
+
