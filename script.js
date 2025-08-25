@@ -141,10 +141,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get form data
             const formData = new FormData(this);
             const data = {
-                name: formData.get('nama'),
+                name: formData.get('name'),
                 email: formData.get('email'),
-                subject: formData.get('subjek'),
-                message: formData.get('pesan'),
+                subject: formData.get('subject'),
+                message: formData.get('message'),
                 timestamp: new Date().toISOString()
             };
             
@@ -1127,4 +1127,3 @@ function openVideoLightboxExternal(videoSrc, caption) {
     lightboxCaption.textContent = caption;
     lightboxModal.classList.remove('hidden');
 }
-
