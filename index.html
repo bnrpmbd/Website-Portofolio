@@ -2,7 +2,11 @@
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <!-- Untuk mobile pull-to-refresh -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Portofolio - Banar Pambudi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -54,7 +58,22 @@
         
         body {
             scroll-behavior: smooth;
-            overscroll-behavior: none;
+            overscroll-behavior-x: none; /* Hanya blokir horizontal overscroll */
+            overscroll-behavior-y: auto; /* Izinkan vertical overscroll untuk pull-to-refresh */
+        }
+        
+        /* Pastikan pull-to-refresh berfungsi di mobile */
+        @media (max-width: 768px) {
+            html, body {
+                overscroll-behavior-y: auto; /* Aktifkan pull-to-refresh untuk mobile */
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling untuk iOS */
+                touch-action: pan-y; /* Izinkan vertical panning untuk pull-to-refresh */
+            }
+            
+            /* Pastikan scroll container tidak memblokir touch events */
+            * {
+                touch-action: manipulation; /* Optimasi touch response */
+            }
         }
         
         @keyframes glow {
@@ -853,4 +872,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
