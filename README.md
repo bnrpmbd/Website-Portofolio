@@ -73,7 +73,7 @@ Situs web portofolio modern dengan desain futuristik menggunakan HTML, CSS (Tail
 
 Jika Anda memiliki pertanyaan atau Saran, silakan hubungi:
 
-- Email: banarpambudi094@gmail.com
+- Email: banarpambudi.ti@gmail.com
 - LinkedIn: [linkedin.com/in/banarpambudi](https://linkedin.com/in/banarpambudi)
 - GitHub: [github.com/bnrpmbd](https://github.com/bnrpmbd)
 
